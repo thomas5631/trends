@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@apollo/client": "^3.5.6",
     "@testing-library/jest-dom": "^5.16.1",
     "@testing-library/react": "^12.1.2",
     "@testing-library/user-event": "^13.5.0",
@@ -10,14 +11,27 @@
     "@types/node": "^16.11.14",
     "@types/react": "^17.0.37",
     "@types/react-dom": "^17.0.11",
+    "@visx/group": "^2.1.0",
+    "@visx/scale": "^2.2.2",
+    "@visx/shape": "^2.4.0",
+    "@visx/xychart": "^2.5.0",
+    "dayjs": "^1.10.7",
+    "graphql": "^15.8.0",
+    "history": "5",
+    "lodash": "^4.17.21",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-scripts": "5.0.0",
+    "react-spring": "^9.3.2",
+    "styled-components": "^5.3.3",
     "typescript": "^4.5.4",
     "web-vitals": "^2.1.2"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "sync": "npx apollo service:download --endpoint=http://localhost:4000/graphql graphql-schema.json",
+    "generate-types": "npx apollo codegen:generate --localSchemaFile=graphql-schema.json --target=typescript --tagName=gql",
+    "prestart": "yarn sync && yarn generate-types",
+    "start": "REACT_APP_GRAPHQL_URI=http://localhost:4000/graphql react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
@@ -39,5 +53,10 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "@types/lodash": "^4.14.178",
+    "@types/styled-components": "^5.1.18",
+    "apollo": "^2.33.9"
   }
 }

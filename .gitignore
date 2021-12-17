@@ -21,3 +21,9 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+# development
+.vscode
+__generated__
+.env
+graphql-schema.json

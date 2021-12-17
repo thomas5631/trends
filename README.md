@@ -1,46 +1,45 @@
-# Getting Started with Create React App
+# Trends
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Available Scripts
+# Running the project
 
-In the project directory, you can run:
+To run the project, set the `endpoint` in both the `sync` and `start` commands so that it points to the desired graphql server then run `yarn start`
 
-### `npm start`
+In order to sync the types with the apollo server, the steps from [this blog post](https://www.apollographql.com/blog/tooling/apollo-codegen/typescript-graphql-code-generator-generate-graphql-types/) were followed. This will happen automatically on start.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+# Attributions
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+There is a problem with the faker avatars at the moment. I've had to use a [fallback image](https://commons.wikimedia.org/wiki/File:Portrait_Placeholder.png) provided by wikipedia creative commons.  This should be attributed.
 
-### `npm test`
+# Testing
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Tests can be run with `yarn test`
 
-### `npm run build`
+# Design
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+![Initial Design](initial_design.jpg "Initial Design")
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+The initial design was sketched on a notepad. Key features of the design are:
+ - Combined topic trends for all users by month
+ - User specific cards
+ - The ability to filter the user posts by a topic of interest
+ - A donut chart which encloses the user avatar to highlight their favorite topics (partially implemented)
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+# Challenges
 
-### `npm run eject`
+Coordinating the figure colors is not straightforwards with visx, this made the donut chart less valuable than hoped. In order to keep the insights as clear as possible, it has been removed for now
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+# Next steps
+The post aggregations and groupings should be revisited in order to make them as performant as possible.
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+Co-ordinate color in the donut chart and add it to the avatar border as per the design.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+Add a user detail view which renders their posts for further analysis.
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+# API improvements
+The graphql api could be tightened up in order to reduce uncertainty on the FE around requests / responses.
+ - Count is not specified as required but an error is thrown if the arg is omitted
+ - Posts are typed as possibly null, but the api might filter out null values before returning them
+ - More query parameters could be added in order to filter the posts by user id or date or topics etc
+ - Selecting the most likely topic could take place on the server side, which would improve the client side experience
